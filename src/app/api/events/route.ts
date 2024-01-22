@@ -33,10 +33,13 @@ export const POST = async (req: NextRequest) => {
 };
 
 export const PUT = async (req: NextRequest) => {
+  console.log("req: ", req);
   await db();
   const data: IEvent = await req.json();
+  console.log("data: PUT", data);
 
   const response = await event.findByIdAndUpdate(data._id, data, { new: true });
+  console.log("response:PUT ", response);
 
   if (!response) {
     return NextResponse.json(

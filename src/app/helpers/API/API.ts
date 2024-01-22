@@ -22,11 +22,13 @@ export const API = {
     }
   },
   updateEvent: async (data: IEvent) => {
+    console.log('data: ', data);
     try {
       const response = await fetch(`${BASE_URL}/api/events`, {
         method: "PUT",
         body: JSON.stringify(data),
       });
+      console.log('response: ', response);
 
       return response;
     } catch (error) {

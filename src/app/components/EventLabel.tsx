@@ -1,6 +1,6 @@
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useRef } from "react";
 import { useDispatch } from "react-redux";
-import MultiClamp from "react-multi-clamp";
+
 import { setCurrentEvent } from "@/app/redux/events/eventsSlice";
 import { calculateEventPosition } from "@/app/helpers/calculateEventPosition";
 
@@ -17,8 +17,10 @@ export function EventLabel({
   width: string;
   setModalIsOpen: Dispatch<SetStateAction<boolean>>;
 }) {
+  const ref = useRef<HTMLDivElement | null>(null);
+  const labelWidth = ref.current?.offsetWidth!;
+
   const dispatch = useDispatch();
-  console.log("width: ", width);
 
   const startTime = Number(event.start);
   const position = calculateEventPosition(startTime);
@@ -30,18 +32,19 @@ export function EventLabel({
 
   return (
     <div
+      ref={ref}
       style={{
         top: `${position}px`,
         height: `${event.duration}px`,
         left: `${direction === 0 ? 0 : "50%"}`,
-        width: `${width}`,
+        width: `${labelWidth < 200 ? width : "200px"}`,
       }}
-      className={`absolute text-sm font-normal py-1 px-4 bg-background pointer-events-auto border-l-border border-solid border-4 hover:bg-blue-300 z-[${
+      className={`truncate ... absolute text-sm font-normal py-1 px-4 bg-background pointer-events-auto border-l-border border-solid border-4 hover:bg-blue-300 z-[${
         index + 20
       }]`}
       onClick={() => openEventUpdateModal(event)}
     >
-      <MultiClamp>{event.title}</MultiClamp>
+      {event.title}
     </div>
   );
 }

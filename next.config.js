@@ -1,4 +1,9 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {}
+const nextConfig = {
+  output: {
+    method: "static",
+    path: "./out",
+  },
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;

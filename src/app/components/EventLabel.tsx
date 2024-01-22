@@ -18,6 +18,7 @@ export function EventLabel({
   setModalIsOpen: Dispatch<SetStateAction<boolean>>;
 }) {
   const dispatch = useDispatch();
+  console.log("width: ", width);
 
   const startTime = Number(event.start);
   const position = calculateEventPosition(startTime);

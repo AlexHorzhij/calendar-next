@@ -23,9 +23,8 @@ export function EventLabel({
   const position = calculateEventPosition(startTime);
 
   const openEventUpdateModal = (event: IEvent) => {
-    console.log("event: ", event);
+    dispatch(setCurrentEvent(event));
     setModalIsOpen(true);
-    // dispatch(setCurrentEvent(event));
   };
 
   return (

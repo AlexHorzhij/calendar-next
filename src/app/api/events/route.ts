@@ -54,7 +54,6 @@ export const DELETE = async (req: NextRequest) => {
   await db();
 
   const id = await req.json();
-  console.log("id: ", id);
 
   const response = await event.findByIdAndDelete(id);
 

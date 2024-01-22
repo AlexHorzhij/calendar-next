@@ -51,7 +51,6 @@ export function EventForm({
         title: values.title,
       };
 
-      console.log("startTime: ", startTime);
       if (startTime) {
         dispatch(postEvent(data));
       } else {
@@ -80,7 +79,7 @@ export function EventForm({
       formik.setFieldValue("start", `${startTime}:00`);
       formik.setFieldValue("end", `${startTime}:30`);
     }
-  }, [currentEventForUpdating, newEventStartTime, startTime, formik]);
+  }, [currentEventForUpdating, newEventStartTime]);
 
   return (
     <form

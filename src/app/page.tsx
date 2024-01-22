@@ -4,7 +4,6 @@ import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 
 import { persistor, store } from "./redux/store";
-console.log("store: ", store);
 import { HourList } from "./components/HourList";
 
 export default function Home() {

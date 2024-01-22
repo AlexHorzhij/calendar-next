@@ -19,17 +19,12 @@ export const eventsSlice = createSlice({
   initialState,
   reducers: {
     setEvent: (state, { payload }) => {
-      console.log("payloadsetEvent: ", payload);
-      // state.currentEvent = null;
-      // console.log("state: ", state);
-      return { ...state, newEventStart: payload };
-
-      // state.newEventStart = payload;
+      state.currentEvent = null;
+      state.newEventStart = payload;
     },
     setCurrentEvent: (state, { payload }: { payload: IEvent }) => {
-      console.log("payloadsetCurrentEvent: ", payload);
-      return { ...state, newEventStart: null };
-      // state.currentEvent = payload;
+      state.newEventStart = null;
+      state.currentEvent = payload;
     },
   },
   extraReducers: (builder) => {
@@ -38,10 +33,8 @@ export const eventsSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(getEvents.fulfilled, (state, { payload }) => {
-        console.log("payload getEvents: ", payload);
         state.events = payload || [];
         state.isLoading = false;
-        console.log("state: fulfilled", state);
       })
       .addCase(getEvents.rejected, (state, { payload }) => {
         // state.error = payload

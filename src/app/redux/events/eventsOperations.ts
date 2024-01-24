@@ -1,10 +1,10 @@
 import { API } from "@/app/helpers/API/API";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-const getEvents = createAsyncThunk("getEvents", async () => {
+const getEvents = createAsyncThunk("getEvents", async (userID: string) => {
   try {
-    const { body }: { body: IEvent[] } = await API.getEvents().then((data) =>
-      data?.json()
+    const { body }: { body: IEvent[] } = await API.getEvents(userID).then(
+      (data) => data?.json()
     );
     return body;
   } catch (error) {

@@ -17,6 +17,11 @@ const config: Config = {
         background: "#E2ECF5",
         border: "#6E9ECF",
       },
+      fontSize: {
+        title: "24px",
+        main: "14px",
+        secondary: "12px",
+      },
     },
   },
   plugins: [],

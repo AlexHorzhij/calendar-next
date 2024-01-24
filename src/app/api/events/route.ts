@@ -1,10 +1,14 @@
 import db from "@/app/db/db";
-import event from "@/app/db/schemas/events";
+import event from "@/app/db/schemas/events/events";
+import { saveEventsIntoFile } from "@/app/helpers";
 import { NextRequest, NextResponse } from "next/server";
 
-export const GET = async () => {
+export const GET = async (req: NextRequest) => {
   await db();
-  const events = await event.find({});
+  const id = req.headers.get("user");
+  const events = await event.find({ user_id: id });
+  saveEventsIntoFile(events);
+
   if (!events) {
     return NextResponse.json(
       { message: "Events not found", ok: false },
@@ -16,9 +20,12 @@ export const GET = async () => {
 
 export const POST = async (req: NextRequest) => {
   await db();
-  const data = await req.json();
+  const data: IEvent = await req.json();
 
   const response = await event.create(data);
+
+  const events = await event.find({ user_id: data.user_id });
+  saveEventsIntoFile(events);
 
   if (!response) {
     return NextResponse.json(
@@ -33,13 +40,13 @@ export const POST = async (req: NextRequest) => {
 };
 
 export const PUT = async (req: NextRequest) => {
-  console.log("req: ", req);
   await db();
   const data: IEvent = await req.json();
-  console.log("data: PUT", data);
 
   const response = await event.findByIdAndUpdate(data._id, data, { new: true });
-  console.log("response:PUT ", response);
+
+  const events = await event.find({ user_id: data.user_id });
+  saveEventsIntoFile(events);
 
   if (!response) {
     return NextResponse.json(

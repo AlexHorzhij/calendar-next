@@ -1,4 +1,4 @@
-export const convertMinutesToHourAndMinutes = (event: IEvent) => {
+export const convertMinutesToHourAndMinutes = (event: IEvent | null) => {
   if (!event) return { start: "00", end: "00" };
 
   const startHours = Math.floor(event.start / 60)

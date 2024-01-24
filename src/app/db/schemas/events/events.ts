@@ -5,6 +5,7 @@ const eventsSchema = new Schema(
     start: Number,
     duration: Number,
     title: String,
+    user_id: String,
   },
   { versionKey: false, timestamps: false }
 );

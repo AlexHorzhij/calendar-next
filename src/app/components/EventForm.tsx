@@ -1,15 +1,16 @@
 import React, { useEffect, Dispatch, SetStateAction } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { ThunkDispatch } from "@reduxjs/toolkit";
 import { useFormik } from "formik";
 
 import { eventStart, currentEvent } from "@/app/redux/events/eventsSelectors";
+import { userId } from "@/app/redux/user/userSelectors";
 import { convertMinutesToHourAndMinutes } from "@/app/helpers";
 import {
   deleteEvent,
   postEvent,
   updateEvent,
 } from "@/app/redux/events/eventsOperations";
-import { ThunkDispatch } from "@reduxjs/toolkit";
 
 export function EventForm({
   setModalIsOpen,
@@ -18,17 +19,18 @@ export function EventForm({
 }) {
   const dispatch = useDispatch<ThunkDispatch<IEvent, any, any>>();
 
+  const user_id = useSelector(userId);
   const newEventStartTime: string | null = useSelector(eventStart);
-  const currentEventForUpdating: IEvent = useSelector(currentEvent);
+  const currentEventForUpdating: IEvent | null = useSelector(currentEvent);
+
+  const { start, end } = convertMinutesToHourAndMinutes(
+    currentEventForUpdating
+  );
 
   let startTime = null as null | string;
   if (newEventStartTime) {
     startTime = Number.parseInt(newEventStartTime).toString().padStart(2, "0");
   }
-
-  const { start, end } = convertMinutesToHourAndMinutes(
-    currentEventForUpdating
-  );
 
   const formik = useFormik({
     initialValues: {
@@ -49,11 +51,12 @@ export function EventForm({
         start: Number(startMinutes),
         duration,
         title: values.title,
+        user_id,
       };
 
       if (startTime) {
         dispatch(postEvent(data));
-      } else {
+      } else if (currentEventForUpdating) {
         dispatch(updateEvent({ ...data, _id: currentEventForUpdating._id }));
       }
 
@@ -68,9 +71,6 @@ export function EventForm({
 
   useEffect(() => {
     if (currentEventForUpdating) {
-      const { start, end } = convertMinutesToHourAndMinutes(
-        currentEventForUpdating
-      );
       formik.setFieldValue("start", start);
       formik.setFieldValue("end", end);
       formik.setFieldValue("title", currentEventForUpdating.title);
@@ -78,6 +78,7 @@ export function EventForm({
     if (newEventStartTime) {
       formik.setFieldValue("start", `${startTime}:00`);
       formik.setFieldValue("end", `${startTime}:30`);
+      formik.setFieldValue("title", "");
     }
   }, [currentEventForUpdating, newEventStartTime]);
 

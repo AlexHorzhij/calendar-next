@@ -13,7 +13,6 @@ export function HourItem({
   const dispatch = useDispatch();
 
   const addEvent = (time: string) => {
-    console.log("time: ", time);
     setModalIsOpen(true);
     dispatch(setEvent(time));
   };

@@ -1,9 +1,13 @@
 const BASE_URL = process.env.NEXT_PUBLIC_URL;
 
 export const API = {
-  getEvents: async () => {
+  getEvents: async (id: string) => {
     try {
-      const events = await fetch(`${BASE_URL}/api/events`);
+      const events = await fetch(`${BASE_URL}/api/events`, {
+        headers: {
+          user: id,
+        },
+      });
       return events;
     } catch (error) {
       console.error("error: ", error);
@@ -22,13 +26,11 @@ export const API = {
     }
   },
   updateEvent: async (data: IEvent) => {
-    console.log('data: ', data);
     try {
       const response = await fetch(`${BASE_URL}/api/events`, {
         method: "PUT",
         body: JSON.stringify(data),
       });
-      console.log('response: ', response);
 
       return response;
     } catch (error) {
@@ -45,6 +47,42 @@ export const API = {
       return response;
     } catch (error) {
       console.error("error: ", error);
+    }
+  },
+  login: async (credentials: { email: string; password: string }) => {
+    try {
+      const response = await fetch(`${BASE_URL}/api/auth/login`, {
+        method: "POST",
+        body: JSON.stringify(credentials),
+      });
+
+      return response;
+    } catch (error) {
+      console.error("error: ", error);
+    }
+  },
+  // logout: async (credentials: { email: string; password: string }) => {
+  //   try {
+  //     const response = await fetch(`${BASE_URL}/api/auth/login`, {
+  //       method: "POST",
+  //       body: JSON.stringify(credentials),
+  //     });
+
+  //     return response;
+  //   } catch (error) {
+  //     console.error("error: ", error);
+  //   }
+  // },
+  register: async (credentials: IUser) => {
+    try {
+      const response = await fetch(`${BASE_URL}/api/auth/register`, {
+        method: "POST",
+        body: JSON.stringify(credentials),
+      });
+
+      return response;
+    } catch (error) {
+      console.error("error1: ", error);
     }
   },
 };

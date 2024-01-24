@@ -36,8 +36,8 @@ export const eventsSlice = createSlice({
         state.events = payload || [];
         state.isLoading = false;
       })
-      .addCase(getEvents.rejected, (state, { payload }) => {
-        // state.error = payload
+      .addCase(getEvents.rejected, (state, { payload }: { payload: any }) => {
+        state.error = payload.message;
         state.isLoading = false;
       })
       .addCase(postEvent.pending, (state) => {
@@ -46,13 +46,12 @@ export const eventsSlice = createSlice({
       .addCase(
         postEvent.fulfilled,
         (state, { payload }: { payload: IEvent }) => {
-          console.log("payload: ", payload);
           state.events.push(payload);
           state.isLoading = false;
         }
       )
-      .addCase(postEvent.rejected, (state, { payload }) => {
-        console.log("payload: ", payload);
+      .addCase(postEvent.rejected, (state, { payload }: { payload: any }) => {
+        state.error = payload.message;
         state.isLoading = false;
       })
       .addCase(updateEvent.pending, (state) => {
@@ -68,8 +67,8 @@ export const eventsSlice = createSlice({
           state.isLoading = false;
         }
       )
-      .addCase(updateEvent.rejected, (state, { payload }) => {
-        console.log("payload: ", payload);
+      .addCase(updateEvent.rejected, (state, { payload }: { payload: any }) => {
+        state.error = payload.message;
         state.isLoading = false;
       })
       .addCase(deleteEvent.pending, (state) => {

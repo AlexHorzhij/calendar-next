@@ -8,7 +8,7 @@ export function HoursLabel({ text }: { text: string }) {
       key={text}
     >
       <div className="text-base">{text}:00</div>
-      <div className="text-[12px] justify-self-center relative top-[14px]">
+      <div className="text-secondary justify-self-center relative top-[14px]">
         {text}:30
       </div>
     </div>

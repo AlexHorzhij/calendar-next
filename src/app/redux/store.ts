@@ -1,6 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import createWebStorage from "redux-persist/lib/storage/createWebStorage";
 import { eventsSlice } from "./events/eventsSlice";
+import { userSlice } from "./user/userSlice";
 import {
   persistStore,
   FLUSH,
@@ -37,18 +38,19 @@ const storage: StorageInterface =
     ? createWebStorage("local")
     : createNoopStorage();
 
-export default storage;
-
-const persistConfig = {
-  key: "events",
+const persistConfigEvents = {
+  key: "user",
   storage: storage,
-  whitelist: ["events"],
+  whitelist: ["name", "email", "id", "authorized"],
 };
 
-const persistedReducer = persistReducer(persistConfig, eventsSlice.reducer);
+const persistedReducer = persistReducer(persistConfigEvents, userSlice.reducer);
 
 export const store = configureStore({
-  reducer: persistedReducer,
+  reducer: {
+    events: eventsSlice.reducer,
+    user: persistedReducer,
+  },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
@@ -57,41 +59,10 @@ export const store = configureStore({
     }),
 });
 
+export default storage;
+export const makeStore = () => store;
 export const persistor = persistStore(store);
 
-// ===================================
-
-// import { configureStore } from "@reduxjs/toolkit";
-// import {
-//   persistStore,
-//   FLUSH,
-//   REHYDRATE,
-//   PAUSE,
-//   PERSIST,
-//   PURGE,
-//   REGISTER,
-//   persistReducer,
-// } from "redux-persist";
-// import storage from "redux-persist/lib/storage";
-// import eventReducers from "./events/eventsSlice";
-// console.log("eventReducers: ", eventReducers);
-
-// const persistConfig = {
-//   key: "event",
-//   storage: storage,
-//   whitelist: ["events"],
-// };
-
-// const persistedReducer = persistReducer(persistConfig, eventReducers);
-
-// export const store = configureStore({
-//   reducer: persistedReducer,
-//   middleware: (getDefaultMiddleware) =>
-//     getDefaultMiddleware({
-//       serializableCheck: {
-//         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-//       },
-//     }),
-// });
-
-// export const persistor = persistStore(store);
+export type AppStore = ReturnType<typeof makeStore>;
+export type RootState = ReturnType<AppStore["getState"]>;
+export type AppDispatch = AppStore["dispatch"];

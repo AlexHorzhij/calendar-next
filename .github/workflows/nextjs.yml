@@ -28,6 +28,8 @@ jobs:
   # Build job
   build:
     runs-on: ubuntu-latest
+    env:
+      NEXT_PUBLIC_MONGO_DB: ${{secrets.NEXT_PUBLIC_MONGO_DB}}
     steps:
       - name: Checkout
         uses: actions/checkout@v4

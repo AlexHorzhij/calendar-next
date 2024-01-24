@@ -1,4 +1,4 @@
-const BASE_URL = "https://github.com/AlexHorzhij/calendar-next";
+const BASE_URL = "https://alexhorzhij.github.io/calendar-next";
 
 export const API = {
   getEvents: async (id: string) => {

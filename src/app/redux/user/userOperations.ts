@@ -20,6 +20,7 @@ const loginUser = createAsyncThunk(
     credentials: { email: string; password: string },
     { rejectWithValue }
   ) => {
+    console.log("credentials: ", credentials);
     try {
       const response = await API.login(credentials).then((data) =>
         data?.json()
@@ -30,21 +31,5 @@ const loginUser = createAsyncThunk(
     }
   }
 );
-// const logoutUser = createAsyncThunk(
-//   "logoutUser",
-//   async (
-//     credentials: { email: string; password: string },
-//     { rejectWithValue }
-//   ) => {
-//     try {
-//       const response = await API.logout(credentials).then((data) =>
-//         data?.json()
-//       );
-//       return response;
-//     } catch (error) {
-//       return rejectWithValue(error);
-//     }
-//   }
-// );
 
 export { registerUser, loginUser };

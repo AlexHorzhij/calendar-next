@@ -9,6 +9,7 @@ export const POST = async (req: NextRequest) => {
     await req.json();
 
   const user = await users.findOne({ email });
+  console.log("user POST: ", user);
 
   if (!user) {
     return NextResponse.json(

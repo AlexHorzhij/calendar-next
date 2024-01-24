@@ -2,6 +2,7 @@
   "name": "calendar-next",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://alexhorzhij.github.io/calendar-next/",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

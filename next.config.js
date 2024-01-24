@@ -4,14 +4,12 @@
 
 const { PHASE_DEVELOPMENT_SERVER } = require("next/constants");
 
-module.exports = {};
+module.exports = (phase, { defaultConfig }) => {
+  if (phase === PHASE_DEVELOPMENT_SERVER) {
+    return {};
+  }
 
-//   (phase, { defaultConfig }) => {
-//   if (phase === PHASE_DEVELOPMENT_SERVER) {
-//     return {};
-//   }
-
-//   return {
-//     output: "export",
-//   };
-// };
+  return {
+    output: "export",
+  };
+};

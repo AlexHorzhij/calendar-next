@@ -1,9 +1,7 @@
-const BASE_URL = "https://alexhorzhij.github.io/calendar-next";
-
 export const API = {
   getEvents: async (id: string) => {
     try {
-      const events = await fetch(`${BASE_URL}/api/events`, {
+      const events = await fetch(`/api/events`, {
         headers: {
           user: id,
         },
@@ -15,7 +13,7 @@ export const API = {
   },
   postEvent: async (data: IEvent) => {
     try {
-      const response = await fetch(`${BASE_URL}/api/events`, {
+      const response = await fetch(`/api/events`, {
         method: "POST",
         body: JSON.stringify(data),
       });
@@ -27,7 +25,7 @@ export const API = {
   },
   updateEvent: async (data: IEvent) => {
     try {
-      const response = await fetch(`${BASE_URL}/api/events`, {
+      const response = await fetch(`/api/events`, {
         method: "PUT",
         body: JSON.stringify(data),
       });
@@ -39,7 +37,7 @@ export const API = {
   },
   deleteEvent: async (id: string) => {
     try {
-      const response = await fetch(`${BASE_URL}/api/events`, {
+      const response = await fetch(`/api/events`, {
         method: "DELETE",
         body: JSON.stringify(id),
       });
@@ -51,7 +49,7 @@ export const API = {
   },
   login: async (credentials: { email: string; password: string }) => {
     try {
-      const response = await fetch(`${BASE_URL}/api/auth/login`, {
+      const response = await fetch(`/api/auth/login`, {
         method: "POST",
         body: JSON.stringify(credentials),
       });
@@ -63,7 +61,7 @@ export const API = {
   },
   register: async (credentials: IUser) => {
     try {
-      const response = await fetch(`${BASE_URL}/api/auth/register`, {
+      const response = await fetch(`/api/auth/register`, {
         method: "POST",
         body: JSON.stringify(credentials),
       });

@@ -20,7 +20,6 @@ const loginUser = createAsyncThunk(
     credentials: { email: string; password: string },
     { rejectWithValue }
   ) => {
-    console.log("credentials: ", credentials);
     try {
       const response = await API.login(credentials).then((data) =>
         data?.json()

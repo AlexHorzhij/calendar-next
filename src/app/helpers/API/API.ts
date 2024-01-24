@@ -51,7 +51,7 @@ export const API = {
   },
   login: async (credentials: { email: string; password: string }) => {
     try {
-      const response = await fetch(`${BASE_URL}/api/auth/login`, {
+      const response = await fetch(`/api/auth/login`, {
         method: "POST",
         body: JSON.stringify(credentials),
       });

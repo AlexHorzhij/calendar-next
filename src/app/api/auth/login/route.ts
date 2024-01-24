@@ -7,10 +7,8 @@ export const POST = async (req: NextRequest) => {
   await db();
   const { email, password }: { email: string; password: string } =
     await req.json();
-  console.log("email: ", email);
 
   const user = await users.findOne({ email });
-  console.log("user: ", user);
 
   if (!user) {
     return NextResponse.json(

@@ -1,4 +1,4 @@
-const BASE_URL = process.env.NEXT_PUBLIC_URL;
+const BASE_URL = process.env.NEXT_PUBLIC_URL || "calendar-next";
 
 export const API = {
   getEvents: async (id: string) => {

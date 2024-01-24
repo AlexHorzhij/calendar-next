@@ -1,4 +1,4 @@
-const BASE_URL = process.env.NEXT_PUBLIC_URL || "calendar-next";
+const BASE_URL = "https://github.com/AlexHorzhij/calendar-next";
 
 export const API = {
   getEvents: async (id: string) => {
@@ -61,18 +61,6 @@ export const API = {
       console.error("error: ", error);
     }
   },
-  // logout: async (credentials: { email: string; password: string }) => {
-  //   try {
-  //     const response = await fetch(`${BASE_URL}/api/auth/login`, {
-  //       method: "POST",
-  //       body: JSON.stringify(credentials),
-  //     });
-
-  //     return response;
-  //   } catch (error) {
-  //     console.error("error: ", error);
-  //   }
-  // },
   register: async (credentials: IUser) => {
     try {
       const response = await fetch(`${BASE_URL}/api/auth/register`, {

@@ -1,4 +1,4 @@
-import { writeFileSync } from "fs";
+import { existsSync, mkdirSync, writeFileSync } from "fs";
 
 export const saveEventsIntoFile = (events: IEvent[]) => {
   const id = events[0].user_id;
@@ -6,6 +6,8 @@ export const saveEventsIntoFile = (events: IEvent[]) => {
     const { _id, user_id, ...rest } = JSON.parse(JSON.stringify(item));
     return rest;
   });
-
-  writeFileSync(`public/events_${id}.json`, JSON.stringify(eventData));
+  if (!existsSync("./json")) {
+    mkdirSync("./json");
+  }
+  writeFileSync(`./json/events_${id}.json`, JSON.stringify(eventData));
 };

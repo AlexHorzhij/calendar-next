@@ -1,11 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
-import { userId, userName } from "../redux/user/userSelectors";
+import { userName } from "../redux/user/userSelectors";
 import { logoutUser } from "../redux/user/userSlice";
 import { DownloadButton } from "./DownloadButton";
 
 export function UserBlock() {
   const name = useSelector(userName);
-  const userID = useSelector(userId);
   const dispatch = useDispatch();
   return (
     <div className="flex flex-col w-[400px] grow shrink-0 mt-[400px] px-[20px]">

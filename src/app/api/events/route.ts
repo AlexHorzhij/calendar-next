@@ -1,6 +1,5 @@
 import db from "@/app/db/db";
 import event from "@/app/db/schemas/events/events";
-import { saveEventsIntoFile } from "@/app/helpers";
 import { NextRequest, NextResponse } from "next/server";
 
 export const GET = async (req: NextRequest) => {
@@ -40,9 +39,6 @@ export const PUT = async (req: NextRequest) => {
   const data: IEvent = await req.json();
 
   const response = await event.findByIdAndUpdate(data._id, data, { new: true });
-
-  const events = await event.find({ user_id: data.user_id });
-  saveEventsIntoFile(events);
 
   if (!response) {
     return NextResponse.json(

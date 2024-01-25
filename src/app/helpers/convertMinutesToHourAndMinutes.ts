@@ -1,16 +1,24 @@
-export const convertMinutesToHourAndMinutes = (event: IEvent | null) => {
-  if (!event) return { start: "00", end: "00" };
+import { START_TIME_TABLE } from "../data/time";
 
-  const startHours = Math.floor(event.start / 60)
+export const convertMinutesToHourAndMinutes = (event: IEvent | null) => {
+  const defaultTime = Math.floor(START_TIME_TABLE / 60)
     .toString()
     .padStart(2, "0");
-  const startMin = (event.start % 60).toString().padEnd(2, "0");
+
+  if (!event) return { start: defaultTime, end: "00" };
+
+  const startTime = event.start + START_TIME_TABLE;
+
+  const startHours = Math.floor(startTime / 60)
+    .toString()
+    .padStart(2, "0");
+  const startMin = (startTime % 60).toString().padEnd(2, "0");
   const start = `${startHours}:${startMin}`;
 
-  const endHours = Math.floor((event.start + event.duration) / 60)
+  const endHours = Math.floor((startTime + event.duration) / 60)
     .toString()
     .padStart(2, "0");
-  const endMin = ((event.start + event.duration) % 60)
+  const endMin = ((startTime + event.duration) % 60)
     .toString()
     .padStart(2, "0");
   const end = `${endHours}:${endMin}`;

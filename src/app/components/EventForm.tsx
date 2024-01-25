@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, Dispatch, SetStateAction } from "react";
+import React, { useEffect, Dispatch, SetStateAction, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ThunkDispatch } from "@reduxjs/toolkit";
 import { useFormik } from "formik";
@@ -8,11 +8,13 @@ import { useFormik } from "formik";
 import { convertMinutesToHourAndMinutes } from "@/app/helpers";
 import { eventStart, currentEvent } from "@/app/redux/events/eventsSelectors";
 import { userId } from "@/app/redux/user/userSelectors";
+import { eventValidation } from "../db/schemas/events/eventValidation";
 import {
   deleteEvent,
   postEvent,
   updateEvent,
 } from "@/app/redux/events/eventsOperations";
+import { START_TIME_TABLE } from "../data/time";
 
 export function EventForm({
   setModalIsOpen,
@@ -40,16 +42,20 @@ export function EventForm({
       end: startTime ? `${startTime}:30` : end,
       title: currentEventForUpdating?.title || "",
     },
+    validationSchema: eventValidation,
     onSubmit: (values) => {
       const startTimeArr = values.start.split(":");
       const startMinutes =
-        Number(startTimeArr[0]) * 60 + Number(startTimeArr[1]);
+        Number(startTimeArr[0]) * 60 -
+        START_TIME_TABLE +
+        Number(startTimeArr[1]);
       const endTimeArr = values.end.split(":");
-      const endMinutes = Number(endTimeArr[0]) * 60 + Number(endTimeArr[1]);
+      const endMinutes =
+        Number(endTimeArr[0]) * 60 - START_TIME_TABLE + Number(endTimeArr[1]);
 
       const duration = endMinutes - startMinutes;
 
-      const data = {
+      const data: IEvent = {
         start: Number(startMinutes),
         duration,
         title: values.title,
@@ -75,14 +81,14 @@ export function EventForm({
     if (currentEventForUpdating) {
       formik.setFieldValue("start", start);
       formik.setFieldValue("end", end);
-      formik.setFieldValue("title", currentEventForUpdating.title);
+      formik.setFieldValue("title", currentEventForUpdating?.title);
     }
     if (newEventStartTime) {
       formik.setFieldValue("start", `${startTime}:00`);
       formik.setFieldValue("end", `${startTime}:30`);
       formik.setFieldValue("title", "");
     }
-  }, [currentEventForUpdating, newEventStartTime]);
+  }, [currentEventForUpdating, newEventStartTime, startTime, start, end]);
 
   return (
     <form
@@ -90,11 +96,14 @@ export function EventForm({
       className="flex flex-col gap-6 items-stretch"
     >
       <div className="w-full">
-        <label htmlFor="email">Title</label>
-        <input
+        <label htmlFor="title">Title</label>
+        <textarea
           id="title"
           name="title"
-          type="title"
+          maxLength={100}
+          rows={3}
+          required
+          autoFocus
           onChange={formik.handleChange}
           value={formik.values.title}
           className=" bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -102,7 +111,7 @@ export function EventForm({
       </div>
       <div className="flex gap-4 w-full items-stretch">
         <div className="w-full">
-          <label htmlFor="firstName">Event start</label>
+          <label htmlFor="start">Event start</label>
           <input
             id="start"
             name="start"

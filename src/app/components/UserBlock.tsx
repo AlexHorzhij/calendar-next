@@ -9,7 +9,7 @@ export function UserBlock() {
   const name = useSelector(userName);
   const dispatch = useDispatch();
   return (
-    <div className="flex flex-col w-[400px] grow shrink-0 mt-[400px] px-[20px]">
+    <div className="flex flex-col w-[400px] grow shrink-0 mt-[450px] px-[20px]">
       <h2 className="text-[32px] mb-[20px]">
         <div className="text-border">Welcome!!!</div>
         <span className="font-semibold">{name}</span>

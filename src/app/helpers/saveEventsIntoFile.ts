@@ -15,5 +15,5 @@ export const saveEventsIntoFile = (events: IEvent[]) => {
   if (!existsSync(jsonDir)) {
     mkdirSync(jsonDir);
   }
-  writeFileSync(`./json/events_${id}.json`, JSON.stringify(eventData));
+  writeFileSync(`${jsonDir}/events_${id}.json`, JSON.stringify(eventData));
 };

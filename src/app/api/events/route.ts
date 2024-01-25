@@ -6,6 +6,7 @@ import { NextRequest, NextResponse } from "next/server";
 export const GET = async (req: NextRequest) => {
   await db();
   const id = req.headers.get("user");
+  console.log("GET user_id: ", id);
   const events = await event.find({ user_id: id });
   saveEventsIntoFile(events);
 

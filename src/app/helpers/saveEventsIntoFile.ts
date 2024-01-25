@@ -1,3 +1,6 @@
+const os = require("os");
+const path = require("path");
+
 import { existsSync, mkdirSync, writeFileSync } from "fs";
 
 export const saveEventsIntoFile = (events: IEvent[]) => {
@@ -6,8 +9,11 @@ export const saveEventsIntoFile = (events: IEvent[]) => {
     const { _id, user_id, ...rest } = JSON.parse(JSON.stringify(item));
     return rest;
   });
-  if (!existsSync("./json")) {
-    mkdirSync("./json");
+  const tempDir = os.tmpdir();
+  const jsonDir = path.join(tempDir, "json");
+
+  if (!existsSync(jsonDir)) {
+    mkdirSync(jsonDir);
   }
   writeFileSync(`./json/events_${id}.json`, JSON.stringify(eventData));
 };

@@ -1,11 +1,13 @@
+"use client";
+
 import React, { useEffect, Dispatch, SetStateAction } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ThunkDispatch } from "@reduxjs/toolkit";
 import { useFormik } from "formik";
 
+import { convertMinutesToHourAndMinutes } from "@/app/helpers";
 import { eventStart, currentEvent } from "@/app/redux/events/eventsSelectors";
 import { userId } from "@/app/redux/user/userSelectors";
-import { convertMinutesToHourAndMinutes } from "@/app/helpers";
 import {
   deleteEvent,
   postEvent,

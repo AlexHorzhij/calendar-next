@@ -1,6 +1,6 @@
 import { Container } from "@mui/material";
 import SignInForm from "@/app/components/auth/SignInForm";
-import StoreProvider from "@/app/components/ReduxProvider";
+import { StoreProvider } from "@/app/components";
 
 export default function Login() {
   return (

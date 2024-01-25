@@ -6,15 +6,18 @@ import { ThunkDispatch } from "@reduxjs/toolkit";
 import { useRouter } from "next/navigation";
 
 import { isLoading, allEvents } from "@/app/redux/events/eventsSelectors";
+import { authorized, userId } from "@/app/redux/user/userSelectors";
 import { getEvents } from "@/app/redux/events/eventsOperations";
-import { HourItem } from "./HourItem";
-import { Modal } from "./Modal";
-import { EventLabel } from "./EventLabel";
+
+import {
+  HourItem,
+  Modal,
+  EventLabel,
+  HoursLabel,
+  Loader,
+} from "@/app/components";
 import { timeList } from "@/app/data/time";
 import { filterEvents } from "@/app/helpers";
-import { Loader } from "@/app/components/Loader";
-import { HoursLabel } from "./HoursLabel";
-import { authorized, userId } from "@/app/redux/user/userSelectors";
 
 export function HourList() {
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -25,18 +28,20 @@ export function HourList() {
   const events: IEvent[] = useSelector(allEvents);
   const loading = useSelector(isLoading);
 
-  if (user) {
-    router.push("/");
-  } else {
-    router.push("login");
-  }
+  useEffect(() => {
+    if (user) {
+      router.push("/");
+    } else {
+      router.push("/login");
+    }
+  }, [user, router]);
 
   const orderedEvents = [...events].sort((a, b) => a.start - b.start);
   const eventsList = filterEvents(orderedEvents);
 
   useEffect(() => {
     dispatch(getEvents(userID));
-  }, [dispatch]);
+  }, [dispatch, userID]);
 
   return (
     <>

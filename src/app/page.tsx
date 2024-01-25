@@ -1,8 +1,4 @@
-"use client";
-
-import { HourList } from "@/app/components/HourList";
-import StoreProvider from "@/app/components/ReduxProvider";
-import { UserBlock } from "./components/UserBlock";
+import { HourList, UserBlock, StoreProvider } from "@/app/components";
 
 export default function Home() {
   return (

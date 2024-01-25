@@ -2,16 +2,17 @@
 
 import { Button, TextField } from "@mui/material";
 
+import { useDispatch, useSelector } from "react-redux";
+import { ThunkDispatch } from "@reduxjs/toolkit";
 import { useRouter } from "next/navigation";
 import { useFormik } from "formik";
 import toast, { Toaster } from "react-hot-toast";
-import { ThunkDispatch } from "@reduxjs/toolkit";
-import { useDispatch, useSelector } from "react-redux";
-import { loginUserValidation } from "@/app/db/schemas/users/usersValidation";
-import { loginUser } from "@/app/redux/user/userOperations";
-import { Loader } from "../Loader";
-import { isLoading } from "@/app/redux/user/userSelectors";
 import Link from "next/link";
+
+import { isLoading } from "@/app/redux/user/userSelectors";
+import { loginUser } from "@/app/redux/user/userOperations";
+import { loginUserValidation } from "@/app/db/schemas/users/usersValidation";
+import { Loader } from "@/app/components";
 
 export default function LoginForm() {
   const router = useRouter();

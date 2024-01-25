@@ -3,15 +3,15 @@
 import { ThunkDispatch } from "@reduxjs/toolkit";
 import { useDispatch, useSelector } from "react-redux";
 import toast, { Toaster } from "react-hot-toast";
+import { useFormik } from "formik";
 import { useRouter } from "next/navigation";
 import { Button, TextField } from "@mui/material";
 import Link from "next/link";
-import { useFormik } from "formik";
 
 import { userValidation } from "@/app/db/schemas/users/usersValidation";
 import { registerUser } from "@/app/redux/user/userOperations";
-import { Loader } from "../Loader";
 import { isLoading } from "@/app/redux/user/userSelectors";
+import { Loader } from "@/app/components";
 
 export default function LoginForm() {
   const router = useRouter();

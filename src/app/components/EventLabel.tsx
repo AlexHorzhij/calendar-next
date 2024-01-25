@@ -1,8 +1,10 @@
+"use client";
+
 import { Dispatch, SetStateAction, useRef } from "react";
 import { useDispatch } from "react-redux";
 
 import { setCurrentEvent } from "@/app/redux/events/eventsSlice";
-import { calculateEventPosition } from "@/app/helpers/calculateEventPosition";
+import { calculateEventPosition } from "@/app/helpers";
 
 export function EventLabel({
   event,

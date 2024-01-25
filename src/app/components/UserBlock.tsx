@@ -16,7 +16,7 @@ export function UserBlock() {
         If you want download you schedule click on link bellow.
       </p>
       <a
-        href={`/tmp/json/events_${userID}.json`}
+        href={`events_${userID}.json`}
         download
         className="hover:underline text-border text-main mb-[80px]"
       >

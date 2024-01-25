@@ -10,6 +10,7 @@ export const saveEventsIntoFile = (events: IEvent[]) => {
     return rest;
   });
   const tempDir = os.tmpdir();
+  console.log("tempDir: ", tempDir);
   const jsonDir = path.join(tempDir, "json");
 
   if (!existsSync(jsonDir)) {

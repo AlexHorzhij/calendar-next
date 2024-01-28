@@ -1,6 +1,6 @@
-import { Container } from "@mui/material";
-import { StoreProvider } from "@/app/components";
-import SignUpForm from "@/app/components/auth/SignUpForm";
+import { Container } from '@mui/material';
+import { StoreProvider } from '@/app/components';
+import SignUpForm from '@/app/components/auth/SignUpForm';
 
 export default function Register() {
   return (

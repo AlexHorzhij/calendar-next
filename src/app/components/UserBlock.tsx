@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { useDispatch, useSelector } from "react-redux";
-import { userName } from "../redux/user/userSelectors";
-import { logoutUser } from "../redux/user/userSlice";
-import { DownloadButton } from "@/app/components";
+import { useDispatch, useSelector } from 'react-redux';
+import { userName } from '@/app/redux/user/userSelectors';
+import { logoutUser } from '@/app/redux/user/userSlice';
+import { DownloadButton } from '@/app/components';
 
 export function UserBlock() {
   const name = useSelector(userName);

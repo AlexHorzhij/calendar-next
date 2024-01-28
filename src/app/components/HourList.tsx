@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { ThunkDispatch } from "@reduxjs/toolkit";
-import { useRouter } from "next/navigation";
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { ThunkDispatch } from '@reduxjs/toolkit';
+import { useRouter } from 'next/navigation';
 
-import { isLoading, allEvents } from "@/app/redux/events/eventsSelectors";
-import { authorized, userId } from "@/app/redux/user/userSelectors";
-import { getEvents } from "@/app/redux/events/eventsOperations";
+import { isLoading, allEvents } from '@/app/redux/events/eventsSelectors';
+import { authorized, userId } from '@/app/redux/user/userSelectors';
+import { getEvents } from '@/app/redux/events/eventsOperations';
 
 import {
   HourItem,
@@ -15,9 +15,9 @@ import {
   EventLabel,
   HoursLabel,
   Loader,
-} from "@/app/components";
-import { timeList } from "@/app/data/time";
-import { filterEvents } from "@/app/helpers";
+} from '@/app/components';
+import { timeList } from '@/app/data/time';
+import { filterEvents } from '@/app/helpers';
 
 export function HourList() {
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -30,9 +30,9 @@ export function HourList() {
 
   useEffect(() => {
     if (user) {
-      router.push("/");
+      router.push('/');
     } else {
-      router.push("/login");
+      router.push('/login');
     }
   }, [user, router]);
 
@@ -48,7 +48,7 @@ export function HourList() {
       {loading && <Loader />}
       <div className="flex w-full">
         <div>
-          {timeList.map((item) => (
+          {timeList.map(item => (
             <HoursLabel text={item} key={item} />
           ))}
         </div>
@@ -69,7 +69,7 @@ export function HourList() {
               })}
           </div>
           <div className="border-solid border-border border-l-2">
-            {timeList.map((item) => (
+            {timeList.map(item => (
               <HourItem
                 key={item}
                 setModalIsOpen={setModalIsOpen}

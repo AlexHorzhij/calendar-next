@@ -1,32 +1,32 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { registerUser, loginUser } from "./userOperations";
+import { createSlice } from '@reduxjs/toolkit';
+import { registerUser, loginUser } from './userOperations';
 
 const initialState = {
-  name: "",
-  email: "",
-  id: "",
+  name: '',
+  email: '',
+  id: '',
   authorized: false,
   isLoading: false,
   error: false,
 };
 
 export const userSlice = createSlice({
-  name: "user",
+  name: 'user',
   initialState,
   reducers: {
     setLoading: (state, { payload }) => {
       state.isLoading = payload;
     },
-    logoutUser: (state) => {
-      state.name = "";
-      state.email = "";
-      state.id = "";
+    logoutUser: state => {
+      state.name = '';
+      state.email = '';
+      state.id = '';
       state.authorized = false;
     },
   },
-  extraReducers: (builder) => {
+  extraReducers: builder => {
     builder
-      .addCase(registerUser.pending, (state) => {
+      .addCase(registerUser.pending, state => {
         state.isLoading = true;
       })
       .addCase(registerUser.fulfilled, (state, { payload }) => {
@@ -43,7 +43,7 @@ export const userSlice = createSlice({
           state.isLoading = false;
         }
       )
-      .addCase(loginUser.pending, (state) => {
+      .addCase(loginUser.pending, state => {
         state.isLoading = true;
       })
       .addCase(loginUser.fulfilled, (state, { payload }) => {

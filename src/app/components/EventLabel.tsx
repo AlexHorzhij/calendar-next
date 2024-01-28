@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import { Dispatch, SetStateAction, useRef } from "react";
-import { useDispatch } from "react-redux";
+import { Dispatch, SetStateAction, useRef } from 'react';
+import { useDispatch } from 'react-redux';
 
-import { setCurrentEvent } from "@/app/redux/events/eventsSlice";
-import { calculateEventPosition } from "@/app/helpers";
-import { HOUR_ITEM_HEIGHT } from "../data/time";
+import { setCurrentEvent } from '@/app/redux/events/eventsSlice';
+import { calculateEventPosition } from '@/app/helpers';
+import { HOUR_ITEM_HEIGHT } from '../data/time';
 
 export function EventLabel({
   event,
@@ -39,8 +39,8 @@ export function EventLabel({
       style={{
         top: `${position}px`,
         height: `${(event.duration / 60) * HOUR_ITEM_HEIGHT}px`,
-        left: `${direction === 0 ? 0 : "50%"}`,
-        width: `${labelWidth < 200 ? width : "200px"}`,
+        left: `${direction === 0 ? 0 : '50%'}`,
+        width: `${labelWidth < 200 ? width : '200px'}`,
       }}
       className={`truncate ... absolute cursor-pointer text-sm font-normal py-1 px-4 bg-background pointer-events-auto border-l-border border-solid border-4 hover:bg-blue-300 z-[${
         index + 20

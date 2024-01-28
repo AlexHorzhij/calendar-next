@@ -1,7 +1,7 @@
-import { useSelector } from "react-redux";
-import { allEvents } from "@/app/redux/events/eventsSelectors";
-import { downloadJsonFile } from "../helpers/downloadJsonFile";
-import { userId } from "@/app/redux/user/userSelectors";
+import { useSelector } from 'react-redux';
+import { allEvents } from '@/app/redux/events/eventsSelectors';
+import { downloadJsonFile } from '../helpers/downloadJsonFile';
+import { userId } from '@/app/redux/user/userSelectors';
 
 export const DownloadButton = () => {
   const reduxData: IEvent[] = useSelector(allEvents);

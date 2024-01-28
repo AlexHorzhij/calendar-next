@@ -1,10 +1,10 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 import {
   deleteEvent,
   getEvents,
   postEvent,
   updateEvent,
-} from "./eventsOperations";
+} from './eventsOperations';
 
 const initialState = {
   events: [] as IEvent[],
@@ -15,7 +15,7 @@ const initialState = {
 };
 
 export const eventsSlice = createSlice({
-  name: "events",
+  name: 'events',
   initialState,
   reducers: {
     setEvent: (state, { payload }) => {
@@ -27,9 +27,9 @@ export const eventsSlice = createSlice({
       state.currentEvent = payload;
     },
   },
-  extraReducers: (builder) => {
+  extraReducers: builder => {
     builder
-      .addCase(getEvents.pending, (state) => {
+      .addCase(getEvents.pending, state => {
         state.isLoading = true;
       })
       .addCase(getEvents.fulfilled, (state, { payload }) => {
@@ -40,7 +40,7 @@ export const eventsSlice = createSlice({
         state.error = payload.message;
         state.isLoading = false;
       })
-      .addCase(postEvent.pending, (state) => {
+      .addCase(postEvent.pending, state => {
         state.isLoading = true;
       })
       .addCase(
@@ -54,14 +54,14 @@ export const eventsSlice = createSlice({
         state.error = payload.message;
         state.isLoading = false;
       })
-      .addCase(updateEvent.pending, (state) => {
+      .addCase(updateEvent.pending, state => {
         state.isLoading = true;
       })
       .addCase(
         updateEvent.fulfilled,
         (state, { payload }: { payload: IEvent }) => {
           const index = state.events.findIndex(
-            (item) => item._id === payload._id
+            item => item._id === payload._id
           );
           state.events[index] = payload;
           state.isLoading = false;
@@ -71,14 +71,14 @@ export const eventsSlice = createSlice({
         state.error = payload.message;
         state.isLoading = false;
       })
-      .addCase(deleteEvent.pending, (state) => {
+      .addCase(deleteEvent.pending, state => {
         state.isLoading = true;
       })
       .addCase(
         deleteEvent.fulfilled,
         (state, { payload }: { payload: IEvent }) => {
           state.events = state.events.filter(
-            (event) => event._id !== payload._id
+            event => event._id !== payload._id
           );
           state.isLoading = false;
         }

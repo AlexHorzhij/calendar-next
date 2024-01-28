@@ -1,4 +1,4 @@
-import { HOUR_ITEM_HEIGHT } from "@/app/data/time";
+import { HOUR_ITEM_HEIGHT } from '@/app/data/time';
 
 export function HoursLabel({ text }: { text: string }) {
   return (

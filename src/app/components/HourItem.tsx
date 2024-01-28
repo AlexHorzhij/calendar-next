@@ -1,7 +1,7 @@
-import { Dispatch, SetStateAction } from "react";
-import { useDispatch } from "react-redux";
-import { setEvent } from "@/app/redux/events/eventsSlice";
-import { HOUR_ITEM_HEIGHT } from "@/app/data/time";
+import { Dispatch, SetStateAction } from 'react';
+import { useDispatch } from 'react-redux';
+import { setEvent } from '@/app/redux/events/eventsSlice';
+import { HOUR_ITEM_HEIGHT } from '@/app/data/time';
 
 export function HourItem({
   setModalIsOpen,
@@ -18,8 +18,10 @@ export function HourItem({
   };
   return (
     <div
-      style={{ height: HOUR_ITEM_HEIGHT + "px" }}
-      className={`flex hover:bg-[#c8d2fa] border-solid border-border border-b-2`}
+      style={{ height: HOUR_ITEM_HEIGHT + 'px' }}
+      className={
+        'flex hover:bg-[#c8d2fa] border-solid border-border border-b-2'
+      }
       onClick={() => addEvent(time)}
     ></div>
   );

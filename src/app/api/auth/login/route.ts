@@ -1,7 +1,7 @@
-import { NextRequest, NextResponse } from "next/server";
-import db from "@/app/db/db";
-import users from "@/app/db/schemas/users/users";
-import { checkPassword } from "@/app/helpers/checkPassword";
+import { NextRequest, NextResponse } from 'next/server';
+import db from '@/app/db/db';
+import users from '@/app/db/schemas/users/users';
+import { checkPassword } from '@/app/helpers/checkPassword';
 
 export const POST = async (req: NextRequest) => {
   await db();
@@ -12,7 +12,7 @@ export const POST = async (req: NextRequest) => {
 
   if (!user) {
     return NextResponse.json(
-      { message: "User not exist", ok: false },
+      { message: 'User not exist', ok: false },
       { status: 404 }
     );
   }
@@ -21,7 +21,7 @@ export const POST = async (req: NextRequest) => {
 
   if (!checkAccess) {
     return NextResponse.json(
-      { message: "Not allowed", ok: false },
+      { message: 'Not allowed', ok: false },
       { status: 403 }
     );
   }
@@ -33,7 +33,7 @@ export const POST = async (req: NextRequest) => {
   };
 
   return NextResponse.json(
-    { message: "Allowed", ok: true, body: userData },
+    { message: 'Allowed', ok: true, body: userData },
     { status: 200 }
   );
 };

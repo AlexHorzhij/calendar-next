@@ -1,7 +1,7 @@
-import { configureStore } from "@reduxjs/toolkit";
-import createWebStorage from "redux-persist/lib/storage/createWebStorage";
-import { eventsSlice } from "./events/eventsSlice";
-import { userSlice } from "./user/userSlice";
+import { configureStore } from '@reduxjs/toolkit';
+import createWebStorage from 'redux-persist/lib/storage/createWebStorage';
+import { eventsSlice } from './events/eventsSlice';
+import { userSlice } from './user/userSlice';
 import {
   persistStore,
   FLUSH,
@@ -11,7 +11,7 @@ import {
   PURGE,
   REGISTER,
   persistReducer,
-} from "redux-persist";
+} from 'redux-persist';
 
 interface StorageInterface {
   getItem(key: string): Promise<string | null>;
@@ -34,14 +34,14 @@ const createNoopStorage = (): StorageInterface => {
 };
 
 const storage: StorageInterface =
-  typeof window !== "undefined"
-    ? createWebStorage("local")
+  typeof window !== 'undefined'
+    ? createWebStorage('local')
     : createNoopStorage();
 
 const persistConfigEvents = {
-  key: "user",
+  key: 'user',
   storage: storage,
-  whitelist: ["name", "email", "id", "authorized"],
+  whitelist: ['name', 'email', 'id', 'authorized'],
 };
 
 const persistedReducer = persistReducer(persistConfigEvents, userSlice.reducer);
@@ -51,7 +51,7 @@ export const store = configureStore({
     events: eventsSlice.reducer,
     user: persistedReducer,
   },
-  middleware: (getDefaultMiddleware) =>
+  middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
@@ -64,5 +64,5 @@ export const makeStore = () => store;
 export const persistor = persistStore(store);
 
 export type AppStore = ReturnType<typeof makeStore>;
-export type RootState = ReturnType<AppStore["getState"]>;
-export type AppDispatch = AppStore["dispatch"];
+export type RootState = ReturnType<AppStore['getState']>;
+export type AppDispatch = AppStore['dispatch'];

@@ -1,4 +1,4 @@
-import { RootState } from "../store";
+import { RootState } from '../store';
 
 export const authorized = (state: RootState) => state.user.authorized;
 export const isLoading = (state: RootState) => state.user.isLoading;

@@ -1,18 +1,18 @@
-"use client";
+'use client';
 
-import { Button, TextField } from "@mui/material";
+import { Button, TextField } from '@mui/material';
 
-import { useDispatch, useSelector } from "react-redux";
-import { ThunkDispatch } from "@reduxjs/toolkit";
-import { useRouter } from "next/navigation";
-import { useFormik } from "formik";
-import toast, { Toaster } from "react-hot-toast";
-import Link from "next/link";
+import { useDispatch, useSelector } from 'react-redux';
+import { ThunkDispatch } from '@reduxjs/toolkit';
+import { useRouter } from 'next/navigation';
+import { useFormik } from 'formik';
+import toast, { Toaster } from 'react-hot-toast';
+import Link from 'next/link';
 
-import { isLoading } from "@/app/redux/user/userSelectors";
-import { loginUser } from "@/app/redux/user/userOperations";
-import { loginUserValidation } from "@/app/db/schemas/users/usersValidation";
-import { Loader } from "@/app/components";
+import { isLoading } from '@/app/redux/user/userSelectors';
+import { loginUser } from '@/app/redux/user/userOperations';
+import { loginUserValidation } from '@/app/db/schemas/users/usersValidation';
+import { Loader } from '@/app/components';
 
 export default function LoginForm() {
   const router = useRouter();
@@ -20,19 +20,19 @@ export default function LoginForm() {
   const loading = useSelector(isLoading);
   const formik = useFormik({
     initialValues: {
-      email: "",
-      password: "",
+      email: '',
+      password: '',
     },
     validationSchema: loginUserValidation,
 
-    onSubmit: async (values) => {
+    onSubmit: async values => {
       const credentials = {
         email: values.email.trim(),
         password: values.password.trim(),
       };
 
       const { payload } = await dispatch(loginUser(credentials));
-      console.log("payload: ", payload);
+      console.log('payload: ', payload);
 
       if (!payload.ok) {
         return toast.error(`Uncorrected login or password.`);
@@ -40,7 +40,7 @@ export default function LoginForm() {
 
       formik.resetForm();
       toast.success(`Welcome ${payload.body.name}`);
-      router.push("/");
+      router.push('/');
     },
   });
 

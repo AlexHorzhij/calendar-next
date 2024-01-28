@@ -1,11 +1,11 @@
-import { API } from "@/app/helpers/API/API";
-import { createAsyncThunk } from "@reduxjs/toolkit";
+import { API } from '@/app/helpers/API/API';
+import { createAsyncThunk } from '@reduxjs/toolkit';
 
 const registerUser = createAsyncThunk(
-  "registerUser",
+  'registerUser',
   async (credentials: IUser, { rejectWithValue }) => {
     try {
-      const response = await API.register(credentials).then((data) =>
+      const response = await API.register(credentials).then(data =>
         data?.json()
       );
       return response;
@@ -15,15 +15,13 @@ const registerUser = createAsyncThunk(
   }
 );
 const loginUser = createAsyncThunk(
-  "loginUser",
+  'loginUser',
   async (
     credentials: { email: string; password: string },
     { rejectWithValue }
   ) => {
     try {
-      const response = await API.login(credentials).then((data) =>
-        data?.json()
-      );
+      const response = await API.login(credentials).then(data => data?.json());
       return response;
     } catch (error) {
       return rejectWithValue(error);

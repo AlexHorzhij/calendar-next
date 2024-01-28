@@ -1,20 +1,20 @@
-"use client";
+'use client';
 
-import React, { useEffect, Dispatch, SetStateAction, useCallback } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { ThunkDispatch } from "@reduxjs/toolkit";
-import { useFormik } from "formik";
+import React, { useEffect, Dispatch, SetStateAction } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { ThunkDispatch } from '@reduxjs/toolkit';
+import { useFormik } from 'formik';
 
-import { convertMinutesToHourAndMinutes } from "@/app/helpers";
-import { eventStart, currentEvent } from "@/app/redux/events/eventsSelectors";
-import { userId } from "@/app/redux/user/userSelectors";
-import { eventValidation } from "../db/schemas/events/eventValidation";
+import { convertMinutesToHourAndMinutes } from '@/app/helpers';
+import { eventStart, currentEvent } from '@/app/redux/events/eventsSelectors';
+import { userId } from '@/app/redux/user/userSelectors';
+import { eventValidation } from '@/app/db/schemas/events/eventValidation';
 import {
   deleteEvent,
   postEvent,
   updateEvent,
-} from "@/app/redux/events/eventsOperations";
-import { START_TIME_TABLE } from "../data/time";
+} from '@/app/redux/events/eventsOperations';
+import { START_TIME_TABLE } from '@/app/data/time';
 
 export function EventForm({
   setModalIsOpen,
@@ -33,23 +33,23 @@ export function EventForm({
 
   let startTime = null as null | string;
   if (newEventStartTime) {
-    startTime = Number.parseInt(newEventStartTime).toString().padStart(2, "0");
+    startTime = Number.parseInt(newEventStartTime).toString().padStart(2, '0');
   }
 
   const formik = useFormik({
     initialValues: {
       start: startTime ? `${startTime}:00` : start,
       end: startTime ? `${startTime}:30` : end,
-      title: currentEventForUpdating?.title || "",
+      title: currentEventForUpdating?.title || '',
     },
     validationSchema: eventValidation,
-    onSubmit: (values) => {
-      const startTimeArr = values.start.split(":");
+    onSubmit: values => {
+      const startTimeArr = values.start.split(':');
       const startMinutes =
         Number(startTimeArr[0]) * 60 -
         START_TIME_TABLE +
         Number(startTimeArr[1]);
-      const endTimeArr = values.end.split(":");
+      const endTimeArr = values.end.split(':');
       const endMinutes =
         Number(endTimeArr[0]) * 60 - START_TIME_TABLE + Number(endTimeArr[1]);
 
@@ -79,14 +79,14 @@ export function EventForm({
 
   useEffect(() => {
     if (currentEventForUpdating) {
-      formik.setFieldValue("start", start);
-      formik.setFieldValue("end", end);
-      formik.setFieldValue("title", currentEventForUpdating?.title);
+      formik.setFieldValue('start', start);
+      formik.setFieldValue('end', end);
+      formik.setFieldValue('title', currentEventForUpdating?.title);
     }
     if (newEventStartTime) {
-      formik.setFieldValue("start", `${startTime}:00`);
-      formik.setFieldValue("end", `${startTime}:30`);
-      formik.setFieldValue("title", "");
+      formik.setFieldValue('start', `${startTime}:00`);
+      formik.setFieldValue('end', `${startTime}:30`);
+      formik.setFieldValue('title', '');
     }
   }, [currentEventForUpdating, newEventStartTime, startTime, start, end]);
 

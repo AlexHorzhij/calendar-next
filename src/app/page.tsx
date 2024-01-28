@@ -1,4 +1,4 @@
-import { HourList, UserBlock, StoreProvider } from "@/app/components";
+import { HourList, UserBlock, StoreProvider } from '@/app/components';
 
 export default function Home() {
   return (

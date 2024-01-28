@@ -1,17 +1,17 @@
-"use client";
+'use client';
 
-import { ThunkDispatch } from "@reduxjs/toolkit";
-import { useDispatch, useSelector } from "react-redux";
-import toast, { Toaster } from "react-hot-toast";
-import { useFormik } from "formik";
-import { useRouter } from "next/navigation";
-import { Button, TextField } from "@mui/material";
-import Link from "next/link";
+import { ThunkDispatch } from '@reduxjs/toolkit';
+import { useDispatch, useSelector } from 'react-redux';
+import toast, { Toaster } from 'react-hot-toast';
+import { useFormik } from 'formik';
+import { useRouter } from 'next/navigation';
+import { Button, TextField } from '@mui/material';
+import Link from 'next/link';
 
-import { userValidation } from "@/app/db/schemas/users/usersValidation";
-import { registerUser } from "@/app/redux/user/userOperations";
-import { isLoading } from "@/app/redux/user/userSelectors";
-import { Loader } from "@/app/components";
+import { userValidation } from '@/app/db/schemas/users/usersValidation';
+import { registerUser } from '@/app/redux/user/userOperations';
+import { isLoading } from '@/app/redux/user/userSelectors';
+import { Loader } from '@/app/components';
 
 export default function LoginForm() {
   const router = useRouter();
@@ -19,13 +19,13 @@ export default function LoginForm() {
   const loading = useSelector(isLoading);
   const formik = useFormik({
     initialValues: {
-      name: "",
-      email: "",
-      password: "",
+      name: '',
+      email: '',
+      password: '',
     },
     validationSchema: userValidation,
 
-    onSubmit: async (values) => {
+    onSubmit: async values => {
       const { payload } = await dispatch(registerUser(values));
 
       if (!payload.ok) {
@@ -33,8 +33,8 @@ export default function LoginForm() {
       }
 
       formik.resetForm();
-      toast.error("Перевірте правильнісь введення логіна та пароля");
-      router.push("/");
+      toast.error('Перевірте правильнісь введення логіна та пароля');
+      router.push('/');
     },
   });
 

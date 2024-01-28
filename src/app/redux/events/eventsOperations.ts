@@ -1,22 +1,22 @@
-import { API } from "@/app/helpers/API/API";
-import { createAsyncThunk } from "@reduxjs/toolkit";
+import { API } from '@/app/helpers/API/API';
+import { createAsyncThunk } from '@reduxjs/toolkit';
 
-const getEvents = createAsyncThunk("getEvents", async (userID: string) => {
+const getEvents = createAsyncThunk('getEvents', async (userID: string) => {
   try {
     const { body }: { body: IEvent[] } = await API.getEvents(userID).then(
-      (data) => data?.json()
+      data => data?.json()
     );
     return body;
   } catch (error) {
-    console.log("error: ", error);
+    console.log('error: ', error);
   }
 });
 
 const postEvent = createAsyncThunk(
-  "postEvent",
+  'postEvent',
   async (data: IEvent, { rejectWithValue }) => {
     try {
-      const { body } = await API.postEvent(data).then((data) => data?.json());
+      const { body } = await API.postEvent(data).then(data => data?.json());
       return body;
     } catch (error) {
       return rejectWithValue(error);
@@ -25,10 +25,10 @@ const postEvent = createAsyncThunk(
 );
 
 const updateEvent = createAsyncThunk(
-  "updateEvent",
+  'updateEvent',
   async (data: IEvent, { rejectWithValue }) => {
     try {
-      const { body } = await API.updateEvent(data).then((data) => data?.json());
+      const { body } = await API.updateEvent(data).then(data => data?.json());
       return body;
     } catch (error) {
       return rejectWithValue(error);
@@ -36,10 +36,10 @@ const updateEvent = createAsyncThunk(
   }
 );
 const deleteEvent = createAsyncThunk(
-  "deleteEvent",
+  'deleteEvent',
   async (id: string, { rejectWithValue }) => {
     try {
-      const { body } = await API.deleteEvent(id).then((data) => data?.json());
+      const { body } = await API.deleteEvent(id).then(data => data?.json());
       return body;
     } catch (error) {
       return rejectWithValue(error);
